@@ -240,20 +240,17 @@ import os
 from datetime import datetime
 import time
 
-# ---------------- Authentication Setup ----------------
-# Dummy credentials (replace with secure storage later)
+
 USER_CREDENTIALS = {
     "teacher1": "password123",
     "admin": "securepass"
 }
 
-# Initialize session state
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
 if "user" not in st.session_state:
     st.session_state["user"] = None
 
-# ---------------- Login Function ----------------
 def login():
     st.title("🔐 Teacher/Admin Login")
     username = st.text_input("👤 Username")
