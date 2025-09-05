@@ -2,18 +2,20 @@ name: Auto Redeploy Streamlit App
 
 on:
   schedule:
-    - cron: "0 */3 * * *"   # every 3 hours
-  workflow_dispatch:
-
-permissions:
-  actions: write
+    - cron: "0 */3 * * *"   # Runs every 3 hours
+  workflow_dispatch:         # Allow manual trigger too
 
 jobs:
   redeploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger redeploy by re-running workflow
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: Auto Redeploy Streamlit App
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Touch a dummy file to force redeploy
+        run: |
+          date > .reboot_trigger.txt
+      - name: Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .reboot_trigger.txt
+          git commit -m "Auto-redeploy Streamlit app: $(date -u)"
+          git push origin main
