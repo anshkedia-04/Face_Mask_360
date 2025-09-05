@@ -1,0 +1,19 @@
+name: Auto Redeploy Streamlit App
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"   # every 3 hours
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger redeploy by re-running workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Auto Redeploy Streamlit App
+          token: ${{ secrets.GITHUB_TOKEN }}
