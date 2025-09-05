@@ -2,7 +2,6 @@
 *.h5
 *.pth
 *.pt
-*.pkl
 *.joblib
 
 # Ignore zip archives
