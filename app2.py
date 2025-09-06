@@ -8,6 +8,7 @@ import pandas as pd
 import cv2
 import torch
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from PIL import Image
 from facenet_pytorch import MTCNN, InceptionResnetV1
 from sklearn.metrics.pairwise import cosine_similarity
@@ -20,6 +21,11 @@ STUDENTS_FILE = 'students.csv'
 TIMETABLE_FILE = 'timetable.csv'
 ATTENDANCE_DIR = 'Attendance'
 EMBEDDINGS_FILE = "student_embeddings.pkl"
+
+IST = ZoneInfo("Asia/Kolkata")
+
+def now_ist():
+    return datetime.now(IST)
 
 # =========================
 # Ensure directories

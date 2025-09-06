@@ -5,6 +5,9 @@ on:
     - cron: "0 */3 * * *"   # Runs every 3 hours
   workflow_dispatch:         # Manual trigger
 
+permissions:
+  contents: write   # <-- This is the key fix
+
 jobs:
   redeploy:
     runs-on: ubuntu-latest
