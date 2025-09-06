@@ -1,5 +1,12 @@
 # 🎯 FaceMask 360
-Live Demo : https://facemask360-5tzuxokzm6p2ybfnqfszp4.streamlit.app
+
+---
+
+## 🚀 Live Demo
+👉 [**Try the Live App**](https://facemask360-5tzuxokzm6p2ybfnqfszp4.streamlit.app)  
+
+---
+
 > **AI-powered Face Recognition Attendance System**
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
