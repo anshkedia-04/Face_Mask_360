@@ -22,11 +22,6 @@ TIMETABLE_FILE = 'timetable.csv'
 ATTENDANCE_DIR = 'Attendance'
 EMBEDDINGS_FILE = "student_embeddings.pkl"
 
-IST = ZoneInfo("Asia/Kolkata")
-
-def now_ist():
-    return datetime.now(IST)
-
 # =========================
 # Ensure directories
 # =========================
@@ -314,7 +309,7 @@ st.sidebar.markdown(
 st.sidebar.markdown("<div class='sidebar-title'>🎓 FaceMask 360°</div>", unsafe_allow_html=True)
 
 # Show current time in sidebar
-current_time = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+current_time = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d-%m-%Y %H:%M:%S")
 st.sidebar.markdown(f"<div class='sidebar-section'>🕒 <b>Current Time:</b><br>{current_time}</div>", unsafe_allow_html=True)
 
 # Sidebar Menu
