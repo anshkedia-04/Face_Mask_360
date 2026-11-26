@@ -1,56 +1,77 @@
 # 🎯 FaceMask 360
 
----
+> **Real-Time Face Recognition Attendance System powered by FaceNet & Streamlit**
 
-## 🚀 Live Demo
-👉 [**Try the Live App**](https://facemask360-5tzuxokzm6p2ybfnqfszp4.streamlit.app)  
-
----
-
-> **AI-powered Face Recognition Attendance System**
-
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
-![Streamlit](https://img.shields.io/badge/Streamlit-Backend-ff4b4b?style=for-the-badge&logo=streamlit)
-![React](https://img.shields.io/badge/React-Frontend-blue?style=for-the-badge&logo=react)
-![Deep Learning](https://img.shields.io/badge/Deep%20Learning-CNN%2C%20MobileNet%2C%20FaceNet-orange?style=for-the-badge&logo=tensorflow)
-
----
-
-## 📌 Overview
-**FaceMask 360** is a **real-time face recognition attendance system** built with cutting-edge AI models.  
-It offers a **fast, accurate, and contactless** way to record attendance using a webcam feed, making it ideal for classrooms, offices, and events.
-
-We experimented with **three models**:
-- 🧠 **Custom CNN**
-- ⚡ **MobileNet**
-- 🚀 **FaceNet (Winner!)**
-
-FaceNet achieved the highest accuracy (**96.5%**) on our custom dataset.
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.50%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![PyTorch](https://img.shields.io/badge/FaceNet-InceptionResnetV1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 
 ---
 
 ## ✨ Features
-✅ Real-time face detection and recognition  
-✅ Attendance logging with timestamps  
-✅ High accuracy with FaceNet embeddings  
-✅ Easy-to-use web interface (React.js)  
-✅ REST API for backend processing (Flask)  
-✅ Modular design for future expansion  
+
+- **Multi-Mode Capture**: Works seamlessly via **Browser Camera** (cloud, desktop, & mobile), **Upload Photo** (multi-face detection), and **Local Webcam** (`cv2.VideoCapture`).
+- **FaceNet + MTCNN Pipeline**: Detects multiple faces per frame, computes 512-D embeddings with `InceptionResnetV1 (vggface2)`, and matches via vectorized cosine similarity.
+- **Timetable-Aware Slot Matching**: Automatically detects the active slot from `timetable.csv` (`Asia/Kolkata`) with a manual slot override for testing or off-schedule sessions.
+- **Live Attendance Dashboard**: View real-time Present/Absent counts, attendance rate, searchable daily & historical logs, and one-click **CSV / Excel** exports.
+- **In-App Student Enrollment**: Register new students with a photo directly in the **Students** tab—automatically updating `students.csv` and `student_embeddings.pkl`.
 
 ---
 
-## 📊 Model Performance
-| Model      | Accuracy (%) | Notes |
-|------------|--------------|-------|
-| CNN        | 68.37%       | Basic custom model |
-| MobileNet  | 82.45%       | Lightweight & fast |
-| **FaceNet** | **96.50%**  | Best performance, robust to variations |
+## 🗂 Project Structure
+
+```text
+├── app.py                   # Primary Streamlit entrypoint
+├── app2.py                  # Compatibility entrypoint
+├── dashboard.py             # Dashboard entrypoint
+├── facemask_app/
+│   ├── config.py            # Paths, timezone, and auth configuration
+│   ├── data.py              # Normalized CSV loading, timetable, attendance & exports
+│   ├── recognition.py       # Cached MTCNN + FaceNet recognition & enrollment
+│   └── ui.py                # Clean, responsive Streamlit interface
+├── tests/
+│   └── test_facemask.py     # Unit, integration, and Streamlit AppTest suite
+├── students.csv             # Student roster (Roll, Name, Class)
+├── timetable.csv            # Weekly class timetable
+├── student_embeddings.pkl   # Precomputed FaceNet embeddings
+├── requirements.txt         # Runtime dependencies
+├── requirements-training.txt# Extra packages for offline CNN/MobileNet training
+├── packages.txt             # System packages for Streamlit Community Cloud
+└── Dockerfile               # Production container configuration
+```
 
 ---
 
-## 🛠 Tech Stack
-**Frontend:** React.js, react-webcam  
-**Backend:** Flask, Python  
-**AI Models:** CNN, MobileNet, FaceNet (InceptionResnetV1)  
-**Libraries:** OpenCV, MediaPipe, NumPy, scikit-learn, facenet-pytorch  
+## 🚀 Running Locally
 
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Default teacher login (demo): `teacher1` / `password123` (or `admin` / `securepass`).
+For production, override credentials via environment variable `FACEMASK_USERS="teacher1:yourpass,admin:youradminpass"` or Streamlit Secrets (`[auth_users]`).
+
+---
+
+## 🧪 Running Tests
+
+```bash
+pip install pytest
+pytest -v tests/test_facemask.py
+```
+
+---
+
+## 🐳 Docker Deployment
+
+```bash
+docker build -t facemask360 .
+docker run -p 8501:8501 -e FACEMASK_USERS="teacher1:StrongPass1" facemask360
+```

@@ -1,0 +1,6 @@
+-r requirements.txt
+tensorflow>=2.15.0
+keras>=3.0.0
+matplotlib>=3.8.0
+flask>=3.0.0
+flask-cors>=4.0.0

@@ -1,4 +1,4 @@
-# Ignore model files
+# Ignore model weights (heavy local training checkpoints)
 *.h5
 *.pth
 *.pt
@@ -7,6 +7,11 @@
 # Ignore zip archives
 *.zip
 
-# Ignore cache and temp files
+# Ignore virtual environments, cache, and temp files
+.venv/
+venv/
 __pycache__/
+*.py[cod]
+.pytest_cache/
 *.log
+.DS_Store
